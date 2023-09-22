@@ -7,13 +7,14 @@ const formAlertDOM = document.querySelector('.form-alert')
 const params = window.location.search
 const id = new URLSearchParams(params).get('id')
 let tempName
-
+console.log(id)
 const showTask = async () => {
   try {
     const {
-      data: { task },
-    } = await axios.get(`/api/v1/tasks/${id}`)
-    const { _id: taskID, completed, name } = task
+      data: { SingleTaks },
+    } = await axios.get(`http://localhost:3001/api/v1/tasks/${id}`)
+
+    const { _id: taskID, completed, name } = SingleTaks
 
     taskIDDOM.textContent = taskID
     taskNameDOM.value = name
@@ -37,7 +38,7 @@ editFormDOM.addEventListener('submit', async (e) => {
 
     const {
       data: { task },
-    } = await axios.patch(`/api/v1/tasks/${id}`, {
+    } = await axios.patch(`http://localhost:3001/api/v1/tasks/${id}`, {
       name: taskName,
       completed: taskCompleted,
     })
